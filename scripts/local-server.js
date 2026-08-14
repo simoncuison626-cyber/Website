@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
-const PUBLIC = path.join(ROOT, "public");
+const PUBLIC = ROOT;
 
 process.env.TURSO_DATABASE_URL = process.env.TURSO_DATABASE_URL || "file:local.db";
 

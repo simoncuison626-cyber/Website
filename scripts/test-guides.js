@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PUB = path.join(__dirname, "..", "public", "static");
+const PUB = path.join(__dirname, "..", "static");
 
 const store = {};
 global.localStorage = {

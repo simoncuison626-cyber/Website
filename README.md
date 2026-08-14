@@ -19,10 +19,10 @@ npm test
 
 ## Structure
 
-- `public/` - the whole site (static, works on GitHub Pages / any static host)
-  - `public/static/api.js` - browser API shim (Turso HTTP API or localStorage engine)
-  - `public/static/localdb.js` - offline database engine (localStorage)
-  - `public/static/guides.js` - travel guides + itinerary generator + AI (Google Gemini free tier)
-  - `public/static/split.js` - expense splitter
+- Site files live at the repo root (so GitHub Pages serves them with folder `/(root)`):
+  - `static/api.js` - browser API shim (Turso HTTP API or localStorage engine)
+  - `static/localdb.js` - offline database engine (localStorage)
+  - `static/guides.js` - travel guides + itinerary generator + AI (Google Gemini free tier)
+  - `static/split.js` - expense splitter
 - `scripts/` - local server + test suite
 - `netlify/` - optional legacy Netlify function (not needed for GitHub Pages)

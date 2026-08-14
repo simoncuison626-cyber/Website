@@ -5,8 +5,8 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DB_FILE = path.join(__dirname, "..", "test-shim.db");
-const SHIM = path.join(__dirname, "..", "public", "static", "api.js");
-const LOCALDB = path.join(__dirname, "..", "public", "static", "localdb.js");
+const SHIM = path.join(__dirname, "..", "static", "api.js");
+const LOCALDB = path.join(__dirname, "..", "static", "localdb.js");
 
 const store = {};
 global.localStorage = {
