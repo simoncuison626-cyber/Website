@@ -1,0 +1,25 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+# API calls -> serverless function (same /api/* URLs as before, zero frontend changes)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# Clean URLs
+[[redirects]]
+  from = "/split"
+  to = "/split.html"
+  status = 200
+
+[[redirects]]
+  from = "/guides"
+  to = "/guides.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200

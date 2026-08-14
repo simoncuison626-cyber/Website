@@ -1,0 +1,16 @@
+{
+  "name": "travel-portal",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Travel Portal - static site (GitHub Pages) + Turso or offline localStorage engine",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.14.0"
+  },
+  "scripts": {
+    "start": "node scripts/local-server.js",
+    "test": "node scripts/test-shim.js && node scripts/test-guides.js && node scripts/test-split.js"
+  }
+}

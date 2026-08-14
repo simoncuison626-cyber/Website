@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Travel Portal</title>
+  <link rel="stylesheet" href="static/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="admin-app hidden">
+    <nav class="topnav">
+      <a href="index.html" class="brand">Travel Portal</a>
+      <div class="nav-right">
+        <a href="index.html">Home</a>
+        <a href="split.html">Split Expenses</a>
+        <a href="guides.html">Travel Guides</a>
+        <a href="admin.html" class="active">Admin</a>
+      </div>
+    </nav>
+    <header>
+      <h1>Admin Panel</h1>
+      <p class="tagline">Travel Portal Database Management</p>
+    </header>
+
+    <main>
+      <section class="login-section" id="loginSection">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+          <input type="password" id="adminPassword" placeholder="Enter admin password" required>
+          <button type="submit">Login</button>
+        </form>
+      </section>
+
+      <section class="dashboard hidden" id="dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-value" id="passengerCount">0</span>
+            <span class="stat-label">Total Passengers</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">travel.db</span>
+            <span class="stat-label">Database Name</span>
+          </div>
+        </div>
+
+        <section class="table-section">
+          <h2>Passenger Records</h2>
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="passengerTableBody">
+                <tr><td colspan="3" class="loading-row">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <button class="refresh-btn" id="refreshBtn">Refresh Data</button>
+      </div>
+    </main>
+
+    <footer>
+      <p>Travel Portal Admin © 2024</p>
+    </footer>
+  </div>
+
+  <script src="static/localdb.js"></script>
+  <script src="static/api.js"></script>
+  <script src="static/admin.js"></script>
+</body>
+</html>

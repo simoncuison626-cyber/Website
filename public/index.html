@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Portal</title>
+  <link rel="stylesheet" href="static/css.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="app hidden">
+    <nav class="topnav">
+      <a href="index.html" class="brand">Travel Portal</a>
+      <div class="nav-right">
+        <a href="index.html" class="active">Home</a>
+        <a href="split.html">Split Expenses</a>
+        <a href="guides.html">Travel Guides</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </nav>
+    <header>
+      <h1>Travel Portal</h1>
+      <p class="tagline">Your journey starts here</p>
+    </header>
+
+    <main>
+      <section class="form-section">
+        <h2>Add Your Name</h2>
+        <form id="passengerForm">
+          <input type="text" id="nameInput" placeholder="Enter your full name" required>
+          <button type="submit">Add Passenger</button>
+        </form>
+      </section>
+
+      <section class="list-section">
+        <h2>Registered Passengers</h2>
+        <div id="passengerList" class="passenger-list">
+          <p class="loading">Loading passengers...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Travel Portal © 2024</p>
+    </footer>
+  </div>
+
+  <script src="static/localdb.js"></script>
+  <script src="static/api.js"></script>
+  <script src="static/javascript.js"></script>
+</body>
+</html>

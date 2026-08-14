@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Guides - Travel Portal</title>
+  <link rel="stylesheet" href="static/guides.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="topnav">
+    <a href="index.html" class="brand">Travel Portal</a>
+    <div class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="split.html">Split Expenses</a>
+      <a href="guides.html" class="active">Travel Guides</a>
+      <a href="admin.html">Admin</a>
+    </div>
+  </nav>
+
+  <div class="page">
+    <header>
+      <h1>Travel Guides</h1>
+      <p class="tagline">Best places to eat (liest na food), food cost guide, and a day-by-day itinerary generator - plan your trip like a pro!</p>
+    </header>
+
+    <main>
+      <section class="card-section">
+        <h2>Add Food Guide</h2>
+        <p class="field-hint">Save the best cheap eats and food places you know. These will also be used in the generated itinerary.</p>
+        <form id="guideForm">
+          <div class="form-row">
+            <label for="gCountry">Country</label>
+            <input type="text" id="gCountry" placeholder="e.g. Japan" list="countryList" required>
+            <datalist id="countryList"></datalist>
+          </div>
+          <div class="form-row">
+            <label for="gCity">City</label>
+            <input type="text" id="gCity" placeholder="e.g. Tokyo" list="cityList" required>
+            <datalist id="cityList"></datalist>
+          </div>
+          <div class="form-row">
+            <label for="gPlace">Place / Restaurant</label>
+            <input type="text" id="gPlace" placeholder="e.g. Ichiran Ramen" required>
+          </div>
+          <div class="form-row">
+            <label for="gFood">Food / Dish</label>
+            <input type="text" id="gFood" placeholder="e.g. Tonkotsu Ramen" required>
+          </div>
+          <div class="form-row">
+            <label for="gPrice">Price range (cheapest)</label>
+            <select id="gPrice">
+              <option value="Budget">Budget (mura, ~P150-300)</option>
+              <option value="Mid">Mid (katamtaman, ~P300-800)</option>
+              <option value="Splurge">Splurge (mahal, P800+)</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="gNote">Note / Tip (optional)</label>
+            <input type="text" id="gNote" placeholder="e.g. Open 24hrs, order the pork option">
+          </div>
+          <button type="submit" class="primary-btn">+ Save Guide</button>
+        </form>
+      </section>
+
+      <section class="card-section">
+        <h2>Food Guides <button type="button" id="clearFilter" class="ghost-btn hide">Clear filter</button></h2>
+        <div class="filter-row">
+          <input type="text" id="guideFilter" placeholder="Filter by country...">
+        </div>
+        <div id="guidesList" class="guide-grid"><p class="muted">Loading...</p></div>
+      </section>
+
+      <section class="card-section">
+        <h2>Itinerary Generator</h2>
+        <p class="field-hint">Pick a country and city (e.g. Japan -> Tokyo), enter how many days, then generate a day-by-day plan with cheap food picks. Hindi mo kailangan i-google pa!</p>
+        <form id="itinForm" class="itinerary-form">
+          <div class="form-row">
+            <label for="iCountry">Country</label>
+            <input type="text" id="iCountry" placeholder="e.g. Japan" list="countryList" required>
+          </div>
+          <div class="form-row">
+            <label for="iCity">City</label>
+            <input type="text" id="iCity" placeholder="e.g. Tokyo" list="cityList" required>
+          </div>
+          <div class="form-row">
+            <label for="iDays">Number of Days</label>
+            <input type="number" id="iDays" min="1" max="14" value="3" required>
+          </div>
+          <div class="form-row">
+            <label for="iBudget">Budget</label>
+            <select id="iBudget">
+              <option value="Budget" selected>Budget (mura)</option>
+              <option value="Mid">Mid (katamtaman)</option>
+              <option value="Splurge">Splurge (mahal)</option>
+            </select>
+          </div>
+          <button type="submit" class="primary-btn">Generate Itinerary</button>
+        </form>
+        <div id="itineraryResult"></div>
+        <div class="ai-zone">
+          <button type="button" id="aiBtn" class="ai-btn">&#10024; Generate Detailed AI Itinerary</button>
+          <p class="field-hint">AI adds exact station/bus directions, ranked must-visit spots, daily budgets and cost estimates. Uses Google Gemini's free tier - you'll be asked for a free API key once. Needs internet, takes 20-60 seconds.</p>
+          <div id="aiResult"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Travel Portal Guides</p>
+    </footer>
+  </div>
+
+  <script src="static/localdb.js"></script>
+  <script src="static/api.js"></script>
+  <script src="static/guides.js"></script>
+</body>
+</html>

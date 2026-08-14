@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Splitter - Travel Portal</title>
+  <link rel="stylesheet" href="static/split.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="topnav">
+<a href="index.html" class="brand">Travel Portal</a>
+    <div class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="split.html" class="active">Split Expenses</a>
+      <a href="guides.html">Travel Guides</a>
+      <a href="admin.html">Admin</a>
+    </div>
+  </nav>
+
+  <div class="page">
+    <header>
+      <h1>Expense Splitter</h1>
+      <p class="tagline">Record purchases (abono) and the app automatically computes who owes who - no more manual counting!</p>
+    </header>
+
+    <main>
+      <section class="card-section">
+        <h2>Events (hiwalay na hatian)</h2>
+        <p class="field-hint">Each event has its own purchases and summary. Example: Birthday event -> birthday records lang, Hong Kong Trip -> hong kong gastos lang, hiwalay silang hatian.</p>
+        <div id="eventsList" class="chips"><p class="muted">Loading...</p></div>
+        <form id="addEventForm" class="inline-form">
+          <input type="text" id="eventName" placeholder="New event (e.g. Birthday, Hong Kong Trip)" required>
+          <button type="submit">+ New Event</button>
+        </form>
+      </section>
+
+      <section class="card-section">
+        <h2>People</h2>
+        <div id="peopleList" class="chips"><p class="muted">Loading...</p></div>
+        <form id="addPersonForm" class="inline-form">
+          <input type="text" id="personName" placeholder="Add person (e.g. JC, Mary, Mark)" required>
+          <button type="submit">+ Add Person</button>
+        </form>
+      </section>
+
+      <section class="card-section">
+        <h2>New Purchase (Abono) <span id="expenseFormEvent" class="event-badge"></span></h2>
+        <p class="field-hint">This purchase is saved under the event shown. Switch events above to save under a different hatian.</p>
+        <form id="expenseForm">
+          <div class="form-row">
+            <label for="descInput">Description</label>
+            <input type="text" id="descInput" placeholder="e.g. 4 Drinks, Donut" required>
+          </div>
+          <div class="form-row">
+            <label for="payerSelect">Paid by (nag-abono)</label>
+            <select id="payerSelect" required></select>
+          </div>
+          <div class="form-row">
+            <label for="currencySelect">Currency</label>
+            <select id="currencySelect"></select>
+            <p class="field-hint">Pick the currency used in that location (e.g. HKD in Hong Kong). Amounts are recorded in this currency, and auto-converted to Philippine Peso.</p>
+          </div>
+          <div class="form-row">
+            <label for="datetimeInput">Date &amp; Time</label>
+            <input type="datetime-local" id="datetimeInput">
+          </div>
+          <div class="form-row">
+            <label>Items (sino para kanino + magkano)</label>
+            <div id="itemRows">
+              <div class="item-row">
+                <select class="item-person"></select>
+                <input type="number" class="item-amount" min="0" step="0.01" placeholder="0.00">
+                <button type="button" class="remove-item">x</button>
+              </div>
+            </div>
+            <button type="button" id="addItemBtn" class="ghost-btn">+ Add Item</button>
+          </div>
+          <button type="submit" class="primary-btn">Save Purchase</button>
+        </form>
+      </section>
+
+      <section class="card-section">
+        <h2>Purchases <span id="purchasesEvent" class="event-badge"></span></h2>
+        <div id="expensesList"><p class="muted">Loading...</p></div>
+      </section>
+
+      <section class="card-section">
+        <h2>Exchange Rates (current value in Philippine Peso)</h2>
+        <p id="ratesUpdated" class="muted">Loading latest exchange rates...</p>
+        <div id="ratesList" class="rates-list"><p class="muted">Loading...</p></div>
+      </section>
+
+      <section class="card-section">
+        <h2>Summary (Abono vs Hatian) <span id="summaryEvent" class="event-badge"></span></h2>
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>Total Paid (Abono)</th>
+              <th>Total Share (Utang)</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody id="summaryBody">
+            <tr><td colspan="4" class="muted">Computing...</td></tr>
+          </tbody>
+        </table>
+
+        <h2 class="subhead">Settlement (sino magbabayad kanino)</h2>
+        <div id="settlementList"><p class="muted">Computing...</p></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Travel Portal Expense Splitter</p>
+    </footer>
+  </div>
+
+  <script src="static/localdb.js"></script>
+  <script src="static/api.js"></script>
+  <script src="static/split.js"></script>
+</body>
+</html>
