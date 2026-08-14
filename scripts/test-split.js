@@ -50,19 +50,8 @@ const check = (name, cond, extra = "") => {
 const shimFetch = global.fetch;
 const tick = () => new Promise((r) => setTimeout(r, 20));
 
-/* live rates mock: 1 HKD = 0.1282 PHP -> 1 HKD = P7.80 */
-global.fetch = (url, opts) => {
-  const u = String(url);
-  if (u.startsWith("/api/")) return shimFetch(u, opts);
-  if (u.includes("er-api")) {
-    return Promise.resolve({ ok: true, json: () => Promise.resolve({ result: "success", rates: { PHP: 1, HKD: 0.1282, USD: 0.0178 } }) });
-  }
-  return shimFetch(u, opts);
-};
-
-const api = (path, opts) => shimFetch(path, opts).then((r) => r.json());
-
 /* seed data */
+const api = (path, opts) => shimFetch(path, opts).then((r) => r.json());
 await api("/api/passenger", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: "JC" }) });
 await api("/api/passenger", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: "carmina" }) });
 await api("/api/events", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: "HK Trip" }) });
@@ -75,7 +64,13 @@ await api("/api/expenses", { method: "POST", headers: { "Content-Type": "applica
   items: [{ person_id: 1, amount: 100 }],
 }) });
 
-/* load split.js */
+/* ---- OFFLINE FIRST LOAD: live rates fail -> FALLBACK_RATES must be units-per-PHP (1 HKD = P7.15) ---- */
+global.fetch = (url, opts) => {
+  const u = String(url);
+  if (u.startsWith("/api/")) return shimFetch(u, opts);
+  return Promise.reject(new Error("offline"));
+};
+
 let loadError = null;
 try {
   (0, eval)(fs.readFileSync(path.join(PUB, "split.js"), "utf8"));
@@ -89,6 +84,22 @@ await tick();
 await tick();
 await global.switchEvent(2);
 await tick();
+check("offline fallback: 500 HKD converts to P3575", elements["summaryBody"].innerHTML.includes("\u20B13,575.00"), elements["summaryBody"].innerHTML);
+check("offline fallback: rates list shows 1 HKD = P7.15", elements["ratesList"].innerHTML.includes("\u20B17.15"), elements["ratesList"].innerHTML);
+
+/* ---- LIVE RATES (mock): 1 HKD = 0.1282 PHP -> 1 HKD = P7.80 ---- */
+global.fetch = (url, opts) => {
+  const u = String(url);
+  if (u.startsWith("/api/")) return shimFetch(u, opts);
+  if (u.includes("er-api")) {
+    return Promise.resolve({ ok: true, json: () => Promise.resolve({ result: "success", rates: { PHP: 1, HKD: 0.1282, USD: 0.0178 } }) });
+  }
+  return shimFetch(u, opts);
+};
+await global.loadRates();
+await tick();
+check("live rates: 500 HKD converts to P3900.16", elements["summaryBody"].innerHTML.includes("\u20B13,900.16"), elements["summaryBody"].innerHTML);
+check("live rates: rates list shows 1 HKD = P7.80", elements["ratesList"].innerHTML.includes("\u20B17.80"), elements["ratesList"].innerHTML);
 check("summary shows HKD paid for JC", elements["summaryBody"].innerHTML.includes("HK$500.00"), elements["summaryBody"].innerHTML);
 check("summary shows original-currency cells", elements["summaryBody"].innerHTML.includes("cell-curr"));
 check("summary still shows PHP for JC", elements["summaryBody"].innerHTML.includes("HK$500.00") && elements["summaryBody"].innerHTML.includes("\u20B1"));

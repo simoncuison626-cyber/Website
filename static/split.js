@@ -22,11 +22,13 @@ const CURRENCIES = [
     { code: "TWD", name: "Taiwan Dollar", symbol: "NT$" }
 ];
 
+/* fallback rates: units of currency per 1 PHP (same base as live API).
+   e.g. 1 HKD = P7.15  ->  HKD rate = 1 / 7.15 = 0.13986 */
 const FALLBACK_RATES = {
-    "PHP": 1, "USD": 56.0, "HKD": 7.15, "EUR": 61.0, "GBP": 71.5,
-    "JPY": 0.37, "SGD": 41.8, "CNY": 7.85, "AUD": 37.2, "CAD": 41.0,
-    "KRW": 0.0408, "THB": 1.55, "MYR": 12.0, "IDR": 0.0036,
-    "VND": 0.0023, "TWD": 1.75
+    "PHP": 1, "USD": 0.017857, "HKD": 0.13986, "EUR": 0.016393, "GBP": 0.013986,
+    "JPY": 2.7027, "SGD": 0.0239234, "CNY": 0.127389, "AUD": 0.0268817, "CAD": 0.0243902,
+    "KRW": 24.5098, "THB": 0.645161, "MYR": 0.0833333, "IDR": 277.778,
+    "VND": 434.783, "TWD": 0.571429
 };
 
 let rates = { ...FALLBACK_RATES };
